@@ -1,0 +1,9 @@
+{
+  "aktif": true,
+  "mekanisme": "Claude Code scheduled task: idx-1persen-harian",
+  "cron": "3 8 * * *",
+  "jam": 8,
+  "menit": 3,
+  "diaktifkan": "2026-06-12 16:30 WIB",
+  "catatan": "Jalan tiap pagi ±08:00-08:10 WIB selama app Claude Code terbuka; kalau app tertutup saat jadwal, run dilakukan saat app dibuka lagi. Task file: ~/.claude/scheduled-tasks/idx-1persen-harian/SKILL.md"
+}

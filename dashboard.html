@@ -395,11 +395,13 @@ function renderMetrik(){
   let nextNilai, nextKet;
   if(!OV.schedule){ nextNilai = 'Belum aktif'; nextKet = 'jadwal menunggu persetujuanmu'; }
   else{
-    const n = new Date(); const target = new Date(n); target.setHours(8,0,0,0);
+    const jJam = OV.schedule.jam ?? 8, jMenit = OV.schedule.menit ?? 0;
+    const n = new Date(); const target = new Date(n); target.setHours(jJam, jMenit, 0, 0);
     if(n >= target) target.setDate(target.getDate()+1);
     const jam = Math.round((target-n)/3600000);
-    nextNilai = (hariSama(target,n)?'Hari ini':'Besok') + ' 08.00 WIB';
-    nextKet = `dalam ±${jam} jam`;
+    const label = `${String(jJam).padStart(2,'0')}.${String(jMenit).padStart(2,'0')} WIB`;
+    nextNilai = (hariSama(target,n)?'Hari ini':'Besok') + ' ' + label;
+    nextKet = `dalam ±${jam} jam · jalan saat app Claude Code terbuka`;
   }
   const outToday = OV.state && OV.state.last_output_date === kini.toISOString().slice(0,10) ? 1 : 0;
 
@@ -465,11 +467,13 @@ function faktaUntuk(namaDraft){
 
 /* ---------- denyut ---------- */
 function renderDenyut(){
-  const log = OV.logs.slice(-1)[0] || '';
+  // pakai baris log run pipeline terakhir — baris info (mis. aktivasi jadwal) dilewati
+  const pipa = OV.logs.filter(l => /NO_NEW_DATA|NEW_DATA|DAILY_LIMIT|ERROR|GAGAL|Traceback/i.test(l));
+  const log = pipa.slice(-1)[0] || '';
   const ada = re => re.test(log);
   const langkah = [
     {n:'Ambil data IDX', s: ada(/NO_NEW_DATA|NEW_DATA|DAILY_LIMIT/) ? 'ok' : log ? 'gagal' : 'lewat',
-     k: ada(/NO_NEW_DATA/) ? 'tidak ada pengumuman baru — wajar' : ada(/NEW_DATA/) ? 'file baru ditemukan' : ada(/DAILY_LIMIT/) ? 'jatah output harian sudah terpakai' : log ? 'log tidak dikenali' : 'belum pernah jalan'},
+     k: ada(/NO_NEW_DATA/) ? 'tidak ada pengumuman baru — wajar' : ada(/NEW_DATA/) ? 'file baru ditemukan' : ada(/DAILY_LIMIT/) ? 'jatah output harian sudah terpakai' : log ? 'gagal — lihat log' : 'belum pernah jalan'},
     {n:'Hitung fakta', s: ada(/NEW_DATA/) ? 'ok' : 'lewat', k: ada(/NEW_DATA/) ? 'perbandingan vs bulan lalu dihitung' : 'dilewati'},
     {n:'AI Penulis (maker)', s: ada(/maker OK/i) ? 'ok' : ada(/NEW_DATA/) ? 'gagal' : 'lewat', k: ada(/maker OK/i) ? 'draft ditulis' : 'dilewati'},
     {n:'AI Pemeriksa (checker)', s: ada(/checker PASS.*revisi/i) ? 'amber' : ada(/checker PASS/i) ? 'ok' : ada(/checker FAIL|rejected/i) ? 'gagal' : 'lewat',
@@ -481,14 +485,15 @@ function renderDenyut(){
      <div><div class="nama">${l.n}</div><div class="ket">${l.k}</div></div></div>`).join('');
 
   // strip 30 hari
-  const byDate = {};
+  const byDate = {}, rank = {normal:1, draft:2, gagal:3};
   for(const baris of OV.logs){
     const m = baris.match(/^(\d{4}-\d{2}-\d{2})/);
     if(!m) continue;
-    let cls = 'normal', ket = baris;
+    let cls = 'normal';
     if(/ERROR|GAGAL|Traceback|checker FAIL.*rejected|rejected \(/i.test(baris)) cls = 'gagal';
     else if(/delivered|(draft:.*)|(PASS.*draft)/i.test(baris) && /NEW_DATA/i.test(baris)) cls = 'draft';
-    byDate[m[1]] = {cls, ket};
+    const lama = byDate[m[1]];
+    if(!lama || rank[cls] >= rank[lama.cls]) byDate[m[1]] = {cls, ket: baris};
   }
   let kotak = '';
   for(let i = 29; i >= 0; i--){
@@ -500,7 +505,7 @@ function renderDenyut(){
   $('#strip30').innerHTML = kotak;
 
   $('#jadwal-baris').innerHTML = OV.schedule
-    ? `<span class="chip lolos">✓ Jadwal aktif</span> tiap hari 08.00 WIB`
+    ? `<span class="chip lolos">✓ Jadwal aktif</span> tiap pagi ±${String(OV.schedule.jam ?? 8).padStart(2,'0')}.${String(OV.schedule.menit ?? 0).padStart(2,'0')} WIB <span class="tanya" title="${esc(OV.schedule.catatan || '')}">?</span>`
     : `<span class="chip netral">● Belum aktif</span> jadwal otomatis menunggu persetujuanmu`;
   $('#log-mentah').textContent = OV.logs.length ? OV.logs.join('\n') : 'Belum ada log.';
 }

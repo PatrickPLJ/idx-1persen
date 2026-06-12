@@ -83,15 +83,20 @@ python3 fetch_idx.py check             # run normal
 python3 fetch_idx.py status            # lihat state
 ```
 
-## Aktivasi jadwal (belum aktif!)
+## Jadwal otomatis (AKTIF sejak 12 Jun 2026)
 
-Jadwal cron **sengaja belum dibuat** — menunggu approval Patrick atas hasil
-dry-run. Setelah approve, bilang ke Claude: *"aktifkan cron idx-1persen"* →
-Claude akan membuat cron harian `0 8 * * *` (08:00 WIB, timezone Mac sudah WIB)
-yang menjalankan runbook `CRON_PROMPT.md`.
+Scheduled task Claude Code **`idx-1persen-harian`** — tiap pagi ±08.00–08.10 WIB,
+menjalankan runbook `CRON_PROMPT.md`. Tersimpan permanen di
+`~/.claude/scheduled-tasks/idx-1persen-harian/SKILL.md` (survive restart).
+
+- Jalan selama app Claude Code terbuka; kalau app tertutup pas jadwal,
+  run dilakukan otomatis saat app dibuka lagi.
+- Kelola dari sidebar **Scheduled** di app (Run now / pause / hapus),
+  atau bilang ke Claude.
+- Penanda status untuk dashboard: `schedule.json`.
 
 Catatan: data satu-persen terbit **bulanan**, jadi sebagian besar hari hasilnya
-`NO_NEW_DATA` — itu normal dan murah (1x fetch halaman saja).
+`NO_NEW_DATA` — itu normal dan murah (1x fetch halaman saja, tanpa AI).
 
 ## Dependensi
 
