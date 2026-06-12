@@ -1,0 +1,724 @@
+{
+  "dihitung": "2026-06-12 16:12:53",
+  "sumber": {
+    "sekarang": "peng-05-00014-satu-persen@i3xcp2nk",
+    "pembanding": "peng-04-00013-satu-persen@pt1hj5vy"
+  },
+  "tanggal_data": "2026-05-29",
+  "ringkasan": {
+    "total_baris": 7161,
+    "jumlah_emiten": 956,
+    "investor_lokal": 5333,
+    "investor_asing": 1594
+  },
+  "pembanding": {
+    "tanggal_data_sebelum": "2026-04-30",
+    "total_baris_sebelum": 7167,
+    "jumlah_emiten_sebelum": 956,
+    "jumlah_investor_masuk": 120,
+    "jumlah_investor_keluar": 126,
+    "jumlah_kemungkinan_ganti_nama": 122,
+    "contoh_ganti_nama": [
+      {
+        "kode": "NETV",
+        "dari": "PT MD ENTERTAINMENT TBK",
+        "menjadi": "PT MD PICTURES TBK",
+        "pct": 80.05
+      },
+      {
+        "kode": "AYAM",
+        "dari": "SINGGIH JANURATMOKO",
+        "menjadi": "H. SINGGIH JANURATMOKO, S.K.H",
+        "pct": 76.55
+      },
+      {
+        "kode": "NIRO",
+        "dari": "PT MEGA INTI PERDANA UTAMA",
+        "menjadi": "PT ORION GLOBAL DEVELOPMENT",
+        "pct": 75.25
+      },
+      {
+        "kode": "LPPS",
+        "dari": "BANK JULIUS BAER CO. LTD. S/A PT INTI ANUGRAH PROPERTINDO PLEDGED ACC",
+        "menjadi": "INTI ANUGERAH PRATAMA, PT",
+        "pct": 67.52
+      },
+      {
+        "kode": "PNBS",
+        "dari": "Panin Bank Tbk, PT",
+        "menjadi": "BANK PAN INDONESIA TBK, PT",
+        "pct": 67.3
+      },
+      {
+        "kode": "DMAS",
+        "dari": "PT SUMBER ARUSMULIA",
+        "menjadi": "SUMBER ARUS MULIA, PT",
+        "pct": 57.28
+      },
+      {
+        "kode": "JPFA",
+        "dari": "JAPFA LTD",
+        "menjadi": "JAPFA PTE LTD",
+        "pct": 55.43
+      },
+      {
+        "kode": "RBMS",
+        "dari": "RICHARD R WIRIAHARDJA",
+        "menjadi": "RICHARD R WIRIARAHARDJA",
+        "pct": 51.88
+      },
+      {
+        "kode": "CFIN",
+        "dari": "Panin Bank Tbk, PT",
+        "menjadi": "BANK PAN INDONESIA TBK, PT",
+        "pct": 51.48
+      },
+      {
+        "kode": "MAPI",
+        "dari": "PT SATYA MULIA GEMA GEMILANG",
+        "menjadi": "PACIFIC UNIVERSAL INVESTMENTS PTE LTD",
+        "pct": 51.0
+      }
+    ],
+    "emiten_baru": [],
+    "emiten_hilang": [],
+    "top_investor_masuk": [
+      {
+        "kode": "PNGO",
+        "emiten": "PINAGO UTAMA Tbk",
+        "investor": "AEP NUSANTARA HOLDINGS LIMITED",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "F",
+        "pct": 98.26,
+        "shares": 767664900
+      },
+      {
+        "kode": "KRAS",
+        "emiten": "KRAKATAU STEEL Tbk",
+        "investor": "PERUSAHAAN PERSEROAN (PERSERO) PT DANANTARA ASSET MANAGEMENT",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "L",
+        "pct": 79.2,
+        "shares": 15322346345
+      },
+      {
+        "kode": "DPUM",
+        "emiten": "DUA PUTRA UTAMA MAKMUR Tbk",
+        "investor": "PT RAMA INDONESIA",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "L",
+        "pct": 59.24,
+        "shares": 2473270000
+      },
+      {
+        "kode": "MDLA",
+        "emiten": "MEDELA POTENTIA Tbk",
+        "investor": "VITA MAGNA TRINITA",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "L",
+        "pct": 23.98,
+        "shares": 3360000000
+      },
+      {
+        "kode": "PACK",
+        "emiten": "ABADI NUSANTARA HIJAU INVESTAMA Tbk",
+        "investor": "H SAMSUDIN  ANDI ARSYAD",
+        "klasifikasi": "Individual",
+        "lokal_asing": "L",
+        "pct": 21.12,
+        "shares": 6836867700
+      },
+      {
+        "kode": "MDLA",
+        "emiten": "MEDELA POTENTIA Tbk",
+        "investor": "CAKRA UNIVERSAL PERSADA",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "L",
+        "pct": 20.98,
+        "shares": 2940000000
+      },
+      {
+        "kode": "LPKR",
+        "emiten": "LIPPO KARAWACI Tbk",
+        "investor": "INTI ANUGERAH PRATAMA, PT",
+        "klasifikasi": "Investment Advisors",
+        "lokal_asing": "L",
+        "pct": 18.88,
+        "shares": 13383306753
+      },
+      {
+        "kode": "SUPA",
+        "emiten": "SUPER BANK INDONESIA Tbk",
+        "investor": "GXS BANK PTE. LTD.",
+        "klasifikasi": "Bank",
+        "lokal_asing": "F",
+        "pct": 17.66,
+        "shares": 5985442692
+      },
+      {
+        "kode": "ASLI",
+        "emiten": "ASRI KARYA LESTARI Tbk",
+        "investor": "PT CAKRAWALA MULTI MINERAL",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "L",
+        "pct": 11.72,
+        "shares": 732500000
+      },
+      {
+        "kode": "ASRM",
+        "emiten": "ASURANSI RAMAYANA Tbk",
+        "investor": "WIRASTUTI PUNTARAKSMA, S.H.",
+        "klasifikasi": "",
+        "lokal_asing": "",
+        "pct": 11.39,
+        "shares": 145601698
+      },
+      {
+        "kode": "ASRM",
+        "emiten": "ASURANSI RAMAYANA Tbk",
+        "investor": "KOREAN REINSURANCE COMPANY",
+        "klasifikasi": "",
+        "lokal_asing": "",
+        "pct": 10.0,
+        "shares": 127799734
+      },
+      {
+        "kode": "GPSO",
+        "emiten": "GEOPRIMA SOLUSI Tbk",
+        "investor": "ELISA WENARDJO",
+        "klasifikasi": "Individual",
+        "lokal_asing": "L",
+        "pct": 5.28,
+        "shares": 35227500
+      },
+      {
+        "kode": "LPKR",
+        "emiten": "LIPPO KARAWACI Tbk",
+        "investor": "PRIMERO ENTERPRISE LIMITED",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "F",
+        "pct": 5.08,
+        "shares": 3602612240
+      },
+      {
+        "kode": "DILD",
+        "emiten": "INTILAND DEVELOPMENT Tbk",
+        "investor": "HOPE DIAMOND MANAGEMENT LTD",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "F",
+        "pct": 4.82,
+        "shares": 500000000
+      },
+      {
+        "kode": "UVCR",
+        "emiten": "TRIMEGAH KARYA PRATAMA Tbk",
+        "investor": "RONALD LIU",
+        "klasifikasi": "Individual",
+        "lokal_asing": "L",
+        "pct": 4.67,
+        "shares": 93395800
+      }
+    ],
+    "top_investor_keluar": [
+      {
+        "kode": "KRAS",
+        "emiten": "KRAKATAU STEEL Tbk",
+        "investor": "PT BIRO KLASIFIKASI INDONESIA",
+        "klasifikasi": "",
+        "lokal_asing": "L",
+        "pct": 80.0,
+        "shares": 15477117519
+      },
+      {
+        "kode": "PNGO",
+        "emiten": "PINAGO UTAMA Tbk",
+        "investor": "WILSON SUTANTIO",
+        "klasifikasi": "Individual",
+        "lokal_asing": "L",
+        "pct": 22.76,
+        "shares": 177799800
+      },
+      {
+        "kode": "PNGO",
+        "emiten": "PINAGO UTAMA Tbk",
+        "investor": "HASAN TANTRI",
+        "klasifikasi": "Individual",
+        "lokal_asing": "L",
+        "pct": 19.48,
+        "shares": 152172200
+      },
+      {
+        "kode": "ASSA",
+        "emiten": "ADI SARANA ARMADA Tbk",
+        "investor": "DAYA ADICIPTA MUSTIKA",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "L",
+        "pct": 17.65,
+        "shares": 651400000
+      },
+      {
+        "kode": "PNGO",
+        "emiten": "PINAGO UTAMA Tbk",
+        "investor": "CHARLES SUTANTIO",
+        "klasifikasi": "Individual",
+        "lokal_asing": "L",
+        "pct": 17.61,
+        "shares": 137596700
+      },
+      {
+        "kode": "PNGO",
+        "emiten": "PINAGO UTAMA Tbk",
+        "investor": "PETER UNGGUL SUTANTIO",
+        "klasifikasi": "Individual",
+        "lokal_asing": "L",
+        "pct": 15.27,
+        "shares": 119286800
+      },
+      {
+        "kode": "SOSS",
+        "emiten": "SHIELD ON SERVICE Tbk",
+        "investor": "PT PURAGRAHA DIAN PERTIWI",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "L",
+        "pct": 10.26,
+        "shares": 100000000
+      },
+      {
+        "kode": "BNBR",
+        "emiten": "BAKRIE AND BROTHERS Tbk",
+        "investor": "UOB KAY HIAN PRIVATE LIMITED",
+        "klasifikasi": "Securities Company",
+        "lokal_asing": "F",
+        "pct": 8.47,
+        "shares": 14686331055
+      },
+      {
+        "kode": "SUPA",
+        "emiten": "SUPER BANK INDONESIA Tbk",
+        "investor": "SINGTEL ALPHA INVESTMENTS PTE. LTD.",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "F",
+        "pct": 7.36,
+        "shares": 2493833503
+      },
+      {
+        "kode": "PANS",
+        "emiten": "PANIN SEKURITAS Tbk",
+        "investor": "Panin Bank Tbk, PT",
+        "klasifikasi": "Bank",
+        "lokal_asing": "L",
+        "pct": 7.11,
+        "shares": 51200000
+      },
+      {
+        "kode": "BISI",
+        "emiten": "BISI INTERNATIONAL Tbk",
+        "investor": "VISTA INVESTMENT HOLDINGS PTELTD",
+        "klasifikasi": "",
+        "lokal_asing": "F",
+        "pct": 6.36,
+        "shares": 190687500
+      },
+      {
+        "kode": "LCKM",
+        "emiten": "LCK GLOBAL KEDATON Tbk",
+        "investor": "PT MAJU MEKAR MAKMUR",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "L",
+        "pct": 5.6,
+        "shares": 56000000
+      },
+      {
+        "kode": "EPAC",
+        "emiten": "MEGALESTARI EPACK SENTOSARAYA Tbk",
+        "investor": "BAHAR",
+        "klasifikasi": "Individual",
+        "lokal_asing": "L",
+        "pct": 5.5,
+        "shares": 181760000
+      },
+      {
+        "kode": "SRSN",
+        "emiten": "INDO ACIDATAMA Tbk",
+        "investor": "BIANTORO SETIJO",
+        "klasifikasi": "Individual",
+        "lokal_asing": "L",
+        "pct": 5.25,
+        "shares": 315965311
+      },
+      {
+        "kode": "SRSN",
+        "emiten": "INDO ACIDATAMA Tbk",
+        "investor": "LUDIJANTO SETIJO",
+        "klasifikasi": "Individual",
+        "lokal_asing": "L",
+        "pct": 5.25,
+        "shares": 315827912
+      }
+    ],
+    "top_kenaikan": [
+      {
+        "kode": "ENZO",
+        "emiten": "MORENZO ABADI PERKASA Tbk",
+        "investor": "PT TRITUNGGAL SUKSES INVESTAMA",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "L",
+        "pct": 68.56,
+        "shares": 1482600000,
+        "pct_sebelum": 20.81,
+        "pct_sesudah": 68.56,
+        "delta_pct": 47.75
+      },
+      {
+        "kode": "SMIL",
+        "emiten": "SARANA MITRA LUAS Tbk",
+        "investor": "WINSTON SUHERMIN",
+        "klasifikasi": "",
+        "lokal_asing": "",
+        "pct": 24.0,
+        "shares": 2100000000,
+        "pct_sebelum": 8.0,
+        "pct_sesudah": 24.0,
+        "delta_pct": 16.0
+      },
+      {
+        "kode": "SOSS",
+        "emiten": "SHIELD ON SERVICE Tbk",
+        "investor": "ALSOK CO., LTD.",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "F",
+        "pct": 98.86,
+        "shares": 963390935,
+        "pct_sebelum": 86.54,
+        "pct_sesudah": 98.86,
+        "delta_pct": 12.32
+      },
+      {
+        "kode": "BNBR",
+        "emiten": "BAKRIE AND BROTHERS Tbk",
+        "investor": "LEVOCA ENTERPRISE LTD",
+        "klasifikasi": "Private Equity",
+        "lokal_asing": "F",
+        "pct": 13.78,
+        "shares": 23898722798,
+        "pct_sebelum": 5.32,
+        "pct_sesudah": 13.78,
+        "delta_pct": 8.46
+      },
+      {
+        "kode": "NSSS",
+        "emiten": "NUSANTARA SAWIT SEJAHTERA Tbk",
+        "investor": "PT SAMUEL SEKURITAS INDONESIA",
+        "klasifikasi": "Securities Company",
+        "lokal_asing": "L",
+        "pct": 19.04,
+        "shares": 4531713800,
+        "pct_sebelum": 11.15,
+        "pct_sesudah": 19.04,
+        "delta_pct": 7.89
+      },
+      {
+        "kode": "PANS",
+        "emiten": "PANIN SEKURITAS Tbk",
+        "investor": "BANK PAN INDONESIA TBK, PT",
+        "klasifikasi": "Bank",
+        "lokal_asing": "L",
+        "pct": 29.0,
+        "shares": 208800000,
+        "pct_sebelum": 21.89,
+        "pct_sesudah": 29.0,
+        "delta_pct": 7.11
+      },
+      {
+        "kode": "BISI",
+        "emiten": "BISI INTERNATIONAL Tbk",
+        "investor": "FIELD INVESTMENT HOLDINGS PTELTD",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "F",
+        "pct": 12.71,
+        "shares": 381375000,
+        "pct_sebelum": 6.36,
+        "pct_sesudah": 12.71,
+        "delta_pct": 6.35
+      },
+      {
+        "kode": "BUKK",
+        "emiten": "BUKAKA TEKNIK UTAMA Tbk",
+        "investor": "NADIA ACHMAD",
+        "klasifikasi": "Individual",
+        "lokal_asing": "L",
+        "pct": 7.03,
+        "shares": 185613823,
+        "pct_sebelum": 1.93,
+        "pct_sesudah": 7.03,
+        "delta_pct": 5.1
+      },
+      {
+        "kode": "BUKK",
+        "emiten": "BUKAKA TEKNIK UTAMA Tbk",
+        "investor": "LAILA ACHMAD",
+        "klasifikasi": "Individual",
+        "lokal_asing": "L",
+        "pct": 6.88,
+        "shares": 181613823,
+        "pct_sebelum": 1.78,
+        "pct_sesudah": 6.88,
+        "delta_pct": 5.1
+      },
+      {
+        "kode": "AMRT",
+        "emiten": "SUMBER ALFARIA TRIJAYA Tbk",
+        "investor": "AMANDA CIPTA PERSADA, PT",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "L",
+        "pct": 14.04,
+        "shares": 5828544500,
+        "pct_sebelum": 8.94,
+        "pct_sesudah": 14.04,
+        "delta_pct": 5.1
+      },
+      {
+        "kode": "KOTA",
+        "emiten": "DMS PROPERTINDO Tbk",
+        "investor": "DMS INVESTAMA PT",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "L",
+        "pct": 48.11,
+        "shares": 5073541269,
+        "pct_sebelum": 43.54,
+        "pct_sesudah": 48.11,
+        "delta_pct": 4.57
+      },
+      {
+        "kode": "BAPA",
+        "emiten": "BEKASI ASRI PEMULA Tbk",
+        "investor": "BELVIN TANNADI",
+        "klasifikasi": "Individual",
+        "lokal_asing": "L",
+        "pct": 11.54,
+        "shares": 76384700,
+        "pct_sebelum": 7.34,
+        "pct_sesudah": 11.54,
+        "delta_pct": 4.2
+      },
+      {
+        "kode": "CNTX",
+        "emiten": "CENTEX Tbk SERI A PREFEREN",
+        "investor": "PENFABRIC SDN BERHAD",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "F",
+        "pct": 20.23,
+        "shares": 14162054,
+        "pct_sebelum": 16.49,
+        "pct_sesudah": 20.23,
+        "delta_pct": 3.74
+      },
+      {
+        "kode": "BBRI",
+        "emiten": "BANK RAKYAT INDONESIA (PERSERO) Tbk",
+        "investor": "PERUSAHAAN PERSEROAN (PERSERO) PT DANANTARA ASSET MANAGEMENT",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "L",
+        "pct": 52.66,
+        "shares": 79804867107,
+        "pct_sebelum": 49.74874371882791,
+        "pct_sesudah": 52.66,
+        "delta_pct": 2.91
+      },
+      {
+        "kode": "DKFT",
+        "emiten": "CENTRAL OMEGA RESOURCES Tbk",
+        "investor": "PT JINSHENG MINING",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "L",
+        "pct": 63.79,
+        "shares": 3596671278,
+        "pct_sebelum": 61.63,
+        "pct_sesudah": 63.79,
+        "delta_pct": 2.16
+      }
+    ],
+    "top_penurunan": [
+      {
+        "kode": "DPUM",
+        "emiten": "DUA PUTRA UTAMA MAKMUR Tbk",
+        "investor": "PT PANDAWA PUTRA INVESTAMA",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "L",
+        "pct": 7.57,
+        "shares": 316184500,
+        "pct_sebelum": 68.81,
+        "pct_sesudah": 7.57,
+        "delta_pct": -61.24
+      },
+      {
+        "kode": "MDLA",
+        "emiten": "MEDELA POTENTIA Tbk",
+        "investor": "DRA HETTY SOETIKNO",
+        "klasifikasi": "Individual",
+        "lokal_asing": "L",
+        "pct": 20.98,
+        "shares": 2940000000,
+        "pct_sebelum": 65.94,
+        "pct_sesudah": 20.98,
+        "delta_pct": -44.96
+      },
+      {
+        "kode": "LPKR",
+        "emiten": "LIPPO KARAWACI Tbk",
+        "investor": "BANK JULIUS BAER CO. LTD. S/A PT INTI ANUGRAH PROPERTINDO PLEDGED ACC",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "L",
+        "pct": 1.37,
+        "shares": 970009658,
+        "pct_sebelum": 25.79,
+        "pct_sesudah": 1.37,
+        "delta_pct": -24.42
+      },
+      {
+        "kode": "PACK",
+        "emiten": "ABADI NUSANTARA HIJAU INVESTAMA Tbk",
+        "investor": "PT ECO ENERGI PERKASA",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "L",
+        "pct": 40.57,
+        "shares": 13135904682,
+        "pct_sebelum": 61.71,
+        "pct_sesudah": 40.57,
+        "delta_pct": -21.14
+      },
+      {
+        "kode": "SMIL",
+        "emiten": "SARANA MITRA LUAS Tbk",
+        "investor": "LUCIA IRAWATY LIE",
+        "klasifikasi": "",
+        "lokal_asing": "",
+        "pct": 8.0,
+        "shares": 700000000,
+        "pct_sebelum": 24.0,
+        "pct_sesudah": 8.0,
+        "delta_pct": -16.0
+      },
+      {
+        "kode": "GPSO",
+        "emiten": "GEOPRIMA SOLUSI Tbk",
+        "investor": "PT PIMSF PULOGADUNG",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "L",
+        "pct": 36.95,
+        "shares": 246369600,
+        "pct_sebelum": 48.95,
+        "pct_sesudah": 36.95,
+        "delta_pct": -12.0
+      },
+      {
+        "kode": "ASLI",
+        "emiten": "ASRI KARYA LESTARI Tbk",
+        "investor": "PT WAHANA KONSTRUKSI MANDIRI",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "L",
+        "pct": 51.0,
+        "shares": 3187500000,
+        "pct_sebelum": 62.72,
+        "pct_sesudah": 51.0,
+        "delta_pct": -11.72
+      },
+      {
+        "kode": "BUKK",
+        "emiten": "BUKAKA TEKNIK UTAMA Tbk",
+        "investor": "IR ACHMAD KALLA",
+        "klasifikasi": "Individual",
+        "lokal_asing": "L",
+        "pct": 15.37,
+        "shares": 405722360,
+        "pct_sebelum": 25.56,
+        "pct_sesudah": 15.37,
+        "delta_pct": -10.19
+      },
+      {
+        "kode": "UVCR",
+        "emiten": "TRIMEGAH KARYA PRATAMA Tbk",
+        "investor": "PT TRIMEGAH SUMBER MAS",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "L",
+        "pct": 31.18,
+        "shares": 623557467,
+        "pct_sebelum": 41.22,
+        "pct_sesudah": 31.18,
+        "delta_pct": -10.04
+      },
+      {
+        "kode": "RELF",
+        "emiten": "GRAHA MITRA ASIA Tbk",
+        "investor": "PT. RELIFE REALTY INDONESIA",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "L",
+        "pct": 9.43,
+        "shares": 540000000,
+        "pct_sebelum": 18.86,
+        "pct_sesudah": 9.43,
+        "delta_pct": -9.43
+      },
+      {
+        "kode": "COAL",
+        "emiten": "BLACK DIAMOND RESOURCES Tbk",
+        "investor": "SUJAKA LAYS",
+        "klasifikasi": "Individual",
+        "lokal_asing": "L",
+        "pct": 8.68,
+        "shares": 542789500,
+        "pct_sebelum": 15.56,
+        "pct_sesudah": 8.68,
+        "delta_pct": -6.88
+      },
+      {
+        "kode": "MAXI",
+        "emiten": "MAXINDO KARYA ANUGERAH Tbk",
+        "investor": "PT KARYA NUSA PERDANA",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "L",
+        "pct": 21.46,
+        "shares": 2062285700,
+        "pct_sebelum": 27.92,
+        "pct_sesudah": 21.46,
+        "delta_pct": -6.46
+      },
+      {
+        "kode": "NSSS",
+        "emiten": "NUSANTARA SAWIT SEJAHTERA Tbk",
+        "investor": "PT SAMUEL TUMBUH BERSAMA",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "L",
+        "pct": 29.55,
+        "shares": 7032811900,
+        "pct_sebelum": 35.05,
+        "pct_sesudah": 29.55,
+        "delta_pct": -5.5
+      },
+      {
+        "kode": "AMRT",
+        "emiten": "SUMBER ALFARIA TRIJAYA Tbk",
+        "investor": "SIGMANTARA ALFINDO",
+        "klasifikasi": "Corporate",
+        "lokal_asing": "L",
+        "pct": 38.9,
+        "shares": 16151783259,
+        "pct_sebelum": 44.0,
+        "pct_sesudah": 38.9,
+        "delta_pct": -5.1
+      },
+      {
+        "kode": "DILD",
+        "emiten": "INTILAND DEVELOPMENT Tbk",
+        "investor": "CGS INTERNATIONAL SECURITIES SINGAPORE PTE LTD",
+        "klasifikasi": "Private Bank",
+        "lokal_asing": "F",
+        "pct": 10.2,
+        "shares": 1056900100,
+        "pct_sebelum": 15.02,
+        "pct_sesudah": 10.2,
+        "delta_pct": -4.82
+      }
+    ]
+  }
+}

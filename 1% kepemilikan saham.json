@@ -1,0 +1,28 @@
+{
+  "keterangan": "State file loop 'Cek 1% Kepemilikan Saham IDX' — daftar pengumuman yang sudah diproses. Jangan edit manual.",
+  "dibuat": "2026-06-12 16:12:51",
+  "processed": {
+    "peng-04-00013-satu-persen@pt1hj5vy": {
+      "status": "seeded",
+      "tanggal": "2026-06-12 16:12:53",
+      "alasan": "run pertama — arsip lama dicatat tanpa diproses"
+    },
+    "peng-03-00012-satu-persen@1ivhzj1q": {
+      "status": "seeded",
+      "tanggal": "2026-06-12 16:12:53",
+      "alasan": "run pertama — arsip lama dicatat tanpa diproses"
+    },
+    "peng-02-00011-satu-persen@r2kjzpk5": {
+      "status": "seeded",
+      "tanggal": "2026-06-12 16:12:53",
+      "alasan": "run pertama — arsip lama dicatat tanpa diproses"
+    },
+    "peng-05-00014-satu-persen@i3xcp2nk": {
+      "status": "delivered",
+      "tanggal": "2026-06-12 16:12:54",
+      "alasan": "Draft Mei 2026 di-approve Patrick via chat, 12 Jun 2026"
+    }
+  },
+  "last_run": "2026-06-12 16:12:51",
+  "last_output_date": "2026-06-12"
+}

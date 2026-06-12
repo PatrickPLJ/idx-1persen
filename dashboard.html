@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meja 1% — Kepemilikan Saham IDX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --kertas:#FAF7F2; --kartu:#FFFFFF; --garis:#E7E0D6; --garis2:#D9D0C0;
+  --tinta:#2B2420; --tinta2:#6B6258; --abu:#8B857C;
+  --perunggu:#9C7A4D; --perunggu-tua:#7A5E3A; --perunggu-muda:#F3EBDD;
+  --hijau:#3F6B4F; --hijau-muda:#EBF1EC; --amber:#B97E2C; --amber-muda:#F8EFDE;
+  --merah:#B5483B; --merah-muda:#F6E7E4; --biru:#4A6B8A; --biru-muda:#E9EFF4;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --sans:"Mulish",-apple-system,"Helvetica Neue",sans-serif;
+  --mono:"JetBrains Mono",Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--kertas); color:var(--tinta); font-family:var(--sans);
+  font-size:15px; line-height:1.55; min-height:100vh;
+  background-image:radial-gradient(ellipse 80% 50% at 50% -10%, #F0E8DA 0%, transparent 60%);
+}
+body::after{ /* serat kertas halus */
+  content:""; position:fixed; inset:0; pointer-events:none; opacity:.5; z-index:9999;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .03 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px 80px}
+
+/* ===== Header ===== */
+header{display:flex;align-items:baseline;gap:16px;padding:30px 0 20px;border-bottom:1px solid var(--garis2)}
+header h1{font-family:var(--serif);font-size:26px;font-weight:700;letter-spacing:-.01em}
+header h1 .satu{color:var(--perunggu)}
+header .sub{color:var(--tinta2);font-size:13px}
+header .kanan{margin-left:auto;display:flex;align-items:center;gap:12px;font-size:12.5px;color:var(--abu)}
+button.muat{font-family:var(--sans);font-weight:700;font-size:12.5px;color:var(--perunggu-tua);
+  background:var(--perunggu-muda);border:1px solid var(--garis2);border-radius:99px;padding:6px 14px;cursor:pointer}
+button.muat:hover{background:#EBDFC9}
+
+/* ===== Verdict / Kabar Pagi ===== */
+#verdict{display:flex;align-items:center;gap:14px;padding:22px 0 6px}
+#verdict .lampu{width:14px;height:14px;border-radius:50%;flex:none;box-shadow:0 0 0 5px color-mix(in srgb, currentColor 18%, transparent)}
+#verdict .kalimat{font-family:var(--serif);font-size:23px;font-weight:600;letter-spacing:-.01em}
+#verdict .v-hijau{color:var(--hijau)} #verdict .v-amber{color:var(--amber)}
+#verdict .v-merah{color:var(--merah)} #verdict .v-abu{color:var(--abu)}
+.tanya{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;
+  border:1px solid var(--garis2);color:var(--abu);font-size:11px;font-weight:700;cursor:help;vertical-align:2px}
+
+.metrik{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:16px 0 8px}
+.kartu{background:var(--kartu);border:1px solid var(--garis);border-radius:12px;padding:16px 18px;
+  box-shadow:0 1px 2px rgba(43,36,32,.04)}
+.kartu .label{font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--abu);margin-bottom:7px}
+.kartu .nilai{font-family:var(--serif);font-size:21px;font-weight:700;line-height:1.25}
+.kartu .nilai.angka-besar{font-size:38px}
+.kartu .ket{font-size:12.5px;color:var(--tinta2);margin-top:4px}
+.kartu.tautan{cursor:pointer;transition:border-color .15s}
+.kartu.tautan:hover{border-color:var(--perunggu)}
+
+/* ===== Section umum ===== */
+section{margin-top:34px}
+.sec-judul{display:flex;align-items:baseline;gap:10px;margin-bottom:14px}
+.sec-judul h2{font-family:var(--serif);font-size:19px;font-weight:700}
+.sec-judul .garis{flex:1;height:1px;background:var(--garis2)}
+.sec-judul .ket{font-size:12px;color:var(--abu)}
+
+/* ===== Chip status (kosakata tunggal) ===== */
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:800;border-radius:99px;padding:3px 11px;white-space:nowrap}
+.chip.menunggu{background:var(--amber-muda);color:var(--amber)}
+.chip.lolos{background:var(--hijau-muda);color:var(--hijau)}
+.chip.ditolak{background:var(--merah-muda);color:var(--merah)}
+.chip.dibuang{background:var(--merah-muda);color:var(--merah)}
+.chip.seeded{background:var(--biru-muda);color:var(--biru)}
+.chip.netral{background:#F0EDE7;color:var(--abu)}
+
+/* ===== Antrian Keputusan ===== */
+.antrian-kartu{background:var(--kartu);border:1.5px solid var(--amber);border-radius:14px;padding:24px 26px;
+  display:flex;gap:22px;align-items:center;box-shadow:0 6px 24px -12px rgba(185,126,44,.35)}
+.antrian-kartu .isi{flex:1}
+.antrian-kartu h3{font-family:var(--serif);font-size:21px;font-weight:700;margin:6px 0 8px}
+.antrian-kartu .pratinjau{font-size:13.5px;color:var(--tinta2);display:flex;gap:14px;flex-wrap:wrap;margin-top:10px}
+.antrian-kartu .pratinjau b{color:var(--tinta);font-variant-numeric:tabular-nums}
+.tombol-utama{font-family:var(--sans);font-weight:800;font-size:14.5px;color:#fff;background:var(--tinta);
+  border:none;border-radius:10px;padding:14px 26px;cursor:pointer;white-space:nowrap;transition:transform .1s, background .15s}
+.tombol-utama:hover{background:#000;transform:translateY(-1px)}
+.kartu-tenang{background:var(--hijau-muda);border:1px solid #D5E2D8;border-radius:14px;padding:22px 26px;color:var(--hijau);font-weight:700}
+.kartu-tenang .sub{font-weight:400;color:var(--tinta2);font-size:13px;margin-top:4px}
+.kartu-onboard{background:var(--amber-muda);border:1px solid #E8D6B5;border-radius:14px;padding:22px 26px}
+.kartu-onboard ul{list-style:none;margin:12px 0;display:grid;gap:7px;font-size:14px}
+.kartu-onboard p{font-size:13.5px;color:var(--tinta2)}
+
+/* ===== Denyut Sistem ===== */
+.denyut{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}
+.stepper{display:grid;gap:0}
+.step{display:flex;gap:13px;position:relative;padding-bottom:18px}
+.step:last-child{padding-bottom:0}
+.step::before{content:"";position:absolute;left:11px;top:26px;bottom:2px;width:2px;background:var(--garis)}
+.step:last-child::before{display:none}
+.step .titik{width:24px;height:24px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:800;border:2px solid var(--garis2);background:#fff;color:var(--abu);z-index:1}
+.step.ok .titik{background:var(--hijau);border-color:var(--hijau);color:#fff}
+.step.lewat .titik{background:#F0EDE7;border-color:var(--garis2);color:var(--abu)}
+.step.amber .titik{background:var(--amber);border-color:var(--amber);color:#fff}
+.step.gagal .titik{background:var(--merah);border-color:var(--merah);color:#fff}
+.step .nama{font-weight:700;font-size:13.5px}
+.step .ket{font-size:12px;color:var(--abu)}
+.strip30{display:grid;grid-template-columns:repeat(15,1fr);gap:4px;margin:4px 0 10px}
+.hari{aspect-ratio:1;border-radius:4px;background:#F0EDE7;border:1px solid var(--garis);cursor:default}
+.hari.draft{background:var(--hijau);border-color:var(--hijau)}
+.hari.normal{background:#C8D4DE;border-color:#B7C5D1}
+.hari.gagal{background:var(--merah);border-color:var(--merah)}
+.legend{display:flex;gap:14px;font-size:11.5px;color:var(--abu);flex-wrap:wrap}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+details.log{margin-top:14px}
+details.log summary{font-size:12.5px;color:var(--abu);cursor:pointer;font-weight:700}
+details.log pre{font-family:var(--mono);font-size:11px;line-height:1.7;color:var(--tinta2);
+  background:#F4F1EA;border:1px solid var(--garis);border-radius:8px;padding:12px;margin-top:8px;overflow-x:auto;white-space:pre-wrap}
+.jadwal-baris{display:flex;gap:8px;align-items:center;font-size:13px;margin-top:12px;padding-top:12px;border-top:1px dashed var(--garis2);color:var(--tinta2)}
+
+/* ===== Sorotan Data ===== */
+details.sorotan>summary{list-style:none;cursor:pointer;display:flex;align-items:baseline;gap:10px}
+details.sorotan>summary::-webkit-details-marker{display:none}
+details.sorotan>summary .panah{font-size:12px;color:var(--perunggu);transition:transform .2s;display:inline-block}
+details.sorotan[open]>summary .panah{transform:rotate(90deg)}
+.edisi-bar{display:flex;align-items:center;gap:14px;margin:18px 0 4px}
+.edisi-bar h3{font-family:var(--serif);font-size:24px;font-weight:700}
+.edisi-bar .nav{display:flex;gap:6px;margin-left:auto}
+.edisi-bar .nav button{width:32px;height:32px;border-radius:8px;border:1px solid var(--garis2);background:#fff;cursor:pointer;font-size:15px;color:var(--tinta2)}
+.edisi-bar .nav button:disabled{opacity:.35;cursor:default}
+.headline{font-family:var(--serif);font-size:17px;font-style:italic;color:var(--tinta2);margin:8px 0 16px;max-width:48em}
+.ring-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
+.bar-la{height:14px;border-radius:7px;overflow:hidden;display:flex;margin-top:8px;border:1px solid var(--garis)}
+.bar-la div{height:100%}
+.mutasi-chip{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 18px}
+.mutasi-chip span{font-size:13px;background:#fff;border:1px solid var(--garis);border-radius:99px;padding:5px 14px}
+.mutasi-chip b{font-variant-numeric:tabular-nums}
+
+.tabs{display:flex;gap:4px;border-bottom:2px solid var(--garis2);margin-bottom:0}
+.tabs button{font-family:var(--sans);font-size:13px;font-weight:700;color:var(--abu);background:none;border:none;
+  padding:9px 16px;cursor:pointer;border-bottom:2.5px solid transparent;margin-bottom:-2px}
+.tabs button.aktif{color:var(--perunggu-tua);border-bottom-color:var(--perunggu)}
+table.data{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--garis);border-top:none;font-size:13px}
+table.data th{font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--abu);
+  text-align:left;padding:9px 12px;border-bottom:1px solid var(--garis);background:#FCFAF6}
+table.data td{padding:8px 12px;border-bottom:1px solid #F2EEE6;vertical-align:top}
+table.data tr:nth-child(even) td{background:#FBF9F5}
+table.data .kode{font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.data .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.data th.num{text-align:right}
+.naik{color:var(--hijau);font-weight:700}.turun{color:var(--merah);font-weight:700}
+.badge-la{font-size:10px;font-weight:800;border-radius:4px;padding:1px 6px;vertical-align:1px}
+.badge-la.L{background:var(--biru-muda);color:var(--biru)}
+.badge-la.F{background:var(--perunggu-muda);color:var(--perunggu-tua)}
+.disclaimer{font-size:11.5px;color:var(--abu);margin-top:10px}
+
+/* ===== Stempel ===== */
+.stempel{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  width:108px;height:108px;border-radius:50%;border:3px double var(--perunggu);color:var(--perunggu);
+  transform:rotate(-12deg);font-weight:800;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  line-height:1.5;flex:none;opacity:.9}
+.stempel .besar{font-family:var(--serif);font-size:15px;letter-spacing:.02em}
+.stempel.abu{border-color:var(--abu);color:var(--abu)}
+.stempel.hijau{border-color:var(--hijau);color:var(--hijau)}
+.stempel.merah{border-color:var(--merah);color:var(--merah)}
+@keyframes cap{0%{transform:rotate(-12deg) scale(2.4);opacity:0}55%{transform:rotate(-12deg) scale(.92);opacity:1}100%{transform:rotate(-12deg) scale(1);opacity:.92}}
+.stempel.cap{animation:cap .45s cubic-bezier(.2,.8,.3,1) forwards}
+
+/* ===== Riwayat ===== */
+#riwayat table.data{border-top:1px solid var(--garis)}
+
+/* ===== Ruang Baca (panel) ===== */
+#tirai{position:fixed;inset:0;background:rgba(43,36,32,.35);opacity:0;pointer-events:none;transition:opacity .25s;z-index:100}
+#tirai.buka{opacity:1;pointer-events:auto}
+#panel{position:fixed;top:0;right:0;bottom:0;width:min(780px,94vw);background:var(--kertas);z-index:101;
+  transform:translateX(102%);transition:transform .3s cubic-bezier(.3,.8,.3,1);display:flex;flex-direction:column;
+  box-shadow:-20px 0 60px -20px rgba(43,36,32,.4)}
+#panel.buka{transform:translateX(0)}
+.panel-atas{display:flex;align-items:center;gap:12px;padding:16px 26px;border-bottom:1px solid var(--garis2);background:var(--kertas)}
+.panel-atas .judul{font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--abu)}
+.panel-atas .tutup{margin-left:auto;width:32px;height:32px;border-radius:8px;border:1px solid var(--garis2);background:#fff;cursor:pointer;font-size:15px;color:var(--tinta2)}
+.banner-draft{background:var(--amber-muda);color:var(--amber);font-weight:800;font-size:12.5px;letter-spacing:.05em;
+  padding:9px 26px;border-bottom:1px solid #E8D6B5}
+.panel-isi{flex:1;overflow-y:auto;padding:30px 40px 40px;position:relative}
+.dok{max-width:680px;margin:0 auto;font-family:var(--serif);font-size:15.5px;line-height:1.7}
+.dok h1{font-size:26px;line-height:1.3;margin-bottom:14px}
+.dok h2{font-size:19px;margin:26px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--garis2)}
+.dok p{margin:10px 0}
+.dok blockquote{background:var(--amber-muda);border-left:3px solid var(--amber);padding:10px 16px;margin:14px 0;font-size:14px}
+.dok table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:12.5px;margin:12px 0}
+.dok th{font-size:10.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--abu);text-align:left;padding:7px 10px;border-bottom:1.5px solid var(--garis2)}
+.dok td{padding:6px 10px;border-bottom:1px solid #EFEAE0;vertical-align:top}
+.dok tr:nth-child(even) td{background:#F6F2EA}
+.dok td:last-child,.dok th:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.dok ul{margin:10px 0 10px 22px}
+.dok li{margin:5px 0}
+.dok code{font-family:var(--mono);font-size:.85em;background:#F0EDE7;padding:1px 5px;border-radius:4px}
+.dok a{color:var(--perunggu-tua)}
+.audit-info{max-width:680px;margin:0 auto 22px;display:flex;gap:10px;align-items:center;font-family:var(--sans);font-size:12.5px;color:var(--tinta2);flex-wrap:wrap}
+.stempel-panel{position:sticky;bottom:10px;float:right;margin:-60px 10px 0 0;z-index:5}
+.panel-bawah{display:flex;gap:12px;align-items:center;padding:14px 26px;border-top:1px solid var(--garis2);background:#fff}
+.panel-bawah .info{font-size:12px;color:var(--abu);margin-right:auto}
+.t-setuju{font-family:var(--sans);font-weight:800;font-size:14px;color:#fff;background:var(--hijau);border:none;border-radius:10px;padding:12px 24px;cursor:pointer}
+.t-setuju:hover{background:#33593F}
+.t-tolak{font-family:var(--sans);font-weight:800;font-size:14px;color:var(--merah);background:#fff;border:1.5px solid var(--merah);border-radius:10px;padding:11px 22px;cursor:pointer}
+.t-tolak:hover{background:var(--merah-muda)}
+.banding{font-family:var(--sans);font-weight:700;font-size:12px;color:var(--perunggu-tua);background:none;border:1px solid var(--garis2);border-radius:8px;padding:8px 12px;cursor:pointer}
+
+.kartu-rusak{background:#FFF8E1;border:1px solid #EAD9A0;border-radius:10px;padding:14px 18px;font-size:13px;color:#7A5E12}
+footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--garis2);font-size:11.5px;color:var(--abu);display:flex;gap:8px;flex-wrap:wrap}
+@media(max-width:860px){.metrik{grid-template-columns:1fr 1fr}.denyut{grid-template-columns:1fr}.ring-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Meja <span class="satu">1%</span> — Kepemilikan Saham IDX</h1>
+  <span class="sub">meja persetujuan harian</span>
+  <div class="kanan">
+    <span id="jam-update">memuat…</span>
+    <button class="muat" onclick="muat(true)">↻ Muat ulang</button>
+  </div>
+</header>
+
+<div id="verdict"><span class="lampu" style="color:var(--abu);background:var(--abu)"></span>
+  <span class="kalimat v-abu">Memuat status…</span></div>
+
+<div class="metrik" id="metrik"></div>
+
+<section id="antrian">
+  <div class="sec-judul"><h2>Antrian Keputusan</h2><div class="garis"></div>
+    <span class="ket">draft menunggu persetujuanmu</span></div>
+  <div id="antrian-isi"></div>
+</section>
+
+<section>
+  <div class="sec-judul"><h2>Denyut Sistem</h2><div class="garis"></div>
+    <span class="ket">apakah mesinnya hidup?</span></div>
+  <div class="denyut">
+    <div class="kartu"><div class="label">Run terakhir — tahap pipeline</div><div id="stepper" class="stepper"></div></div>
+    <div class="kartu">
+      <div class="label">30 hari terakhir</div>
+      <div class="strip30" id="strip30"></div>
+      <div class="legend">
+        <span><i style="background:var(--hijau)"></i>draft jadi</span>
+        <span><i style="background:#C8D4DE"></i>jalan, tak ada data baru (wajar)</span>
+        <span><i style="background:var(--merah)"></i>gagal</span>
+        <span><i style="background:#F0EDE7"></i>tidak jalan</span>
+      </div>
+      <div class="jadwal-baris" id="jadwal-baris"></div>
+    </div>
+  </div>
+  <details class="log"><summary>Lihat log mentah</summary><pre id="log-mentah">—</pre></details>
+</section>
+
+<section>
+  <details class="sorotan" id="acc-sorotan">
+    <summary>
+      <span class="panah">▶</span>
+      <h2 style="font-family:var(--serif);font-size:19px">Sorotan Data Bulanan</h2>
+      <div class="garis" style="flex:1;height:1px;background:var(--garis2)"></div>
+      <span class="ket" style="font-size:12px;color:var(--abu)">opsional — buat yang penasaran isi datanya</span>
+    </summary>
+    <div id="sorotan-isi" style="margin-top:6px"></div>
+  </details>
+</section>
+
+<section id="riwayat">
+  <div class="sec-judul"><h2>Riwayat Keputusan &amp; Audit</h2><div class="garis"></div>
+    <span class="ket">jejak semua keputusan — manusia &amp; AI</span></div>
+  <div id="riwayat-isi"></div>
+</section>
+
+<footer>
+  <span>🛡 Guardrail permanen: maks 1 output/hari · tidak pernah kirim keluar otomatis · tidak pernah hapus data · semua hasil hanya DRAFT lokal.</span>
+  <span>Sumber: <a href="https://www.idx.co.id/id/perusahaan-tercatat/data-kepemilikan-saham/" style="color:var(--perunggu-tua)">idx.co.id — data kepemilikan saham</a></span>
+</footer>
+</div>
+
+<!-- Ruang Baca -->
+<div id="tirai" onclick="tutupPanel()"></div>
+<div id="panel" role="dialog" aria-label="Ruang baca draft">
+  <div class="panel-atas">
+    <span class="judul">Ruang Baca Draft</span>
+    <span id="panel-chip"></span>
+    <button class="tutup" onclick="tutupPanel()" title="Tutup (Esc)">✕</button>
+  </div>
+  <div class="banner-draft">⚠ DRAFT — laporan ini belum final sampai kamu menyetujuinya</div>
+  <div class="panel-isi">
+    <div class="audit-info" id="audit-info"></div>
+    <div class="dok" id="dok"></div>
+    <div id="banding-wrap" class="dok" style="display:none"></div>
+  </div>
+  <div class="panel-bawah" id="panel-bawah"></div>
+</div>
+
+<script>
+"use strict";
+const $ = s => document.querySelector(s);
+const fmtN = new Intl.NumberFormat('id-ID');
+const fmtP = new Intl.NumberFormat('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2});
+const BULAN = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+const BULAN3 = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+let OV = null, FAKTA = null, faktaIdx = 0, draftAktif = null, tabAktif = localStorage.getItem('tab1p') || 'masuk';
+let STATIC = false, SNAP = null; // mode baca-saja dari snapshot.json (GitHub Pages)
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const tglID = d => `${d.getDate()} ${BULAN3[d.getMonth()]} ${d.getFullYear()}`;
+const jamID = d => d.toTimeString().slice(0,5) + ' WIB';
+function parseTs(s){ if(!s) return null; const m = s.match(/(\d{4})-(\d{2})-(\d{2})[ T]?(\d{2})?:?(\d{2})?/);
+  return m ? new Date(+m[1], +m[2]-1, +m[3], +(m[4]||0), +(m[5]||0)) : null; }
+const hariSama = (a,b) => a && b && a.toDateString() === b.toDateString();
+
+/* ---------- favicon + title dinamis ---------- */
+function setIkon(warna, simbol, judul){
+  const c = document.createElement('canvas'); c.width = c.height = 64;
+  const x = c.getContext('2d');
+  x.fillStyle = warna; x.beginPath(); x.arc(32,32,26,0,7); x.fill();
+  x.fillStyle = '#fff'; x.font = 'bold 30px sans-serif'; x.textAlign='center'; x.textBaseline='middle';
+  x.fillText(simbol, 32, 35);
+  let l = document.querySelector("link[rel='icon']");
+  if(!l){ l = document.createElement('link'); l.rel = 'icon'; document.head.appendChild(l); }
+  l.href = c.toDataURL(); document.title = judul;
+}
+
+/* ---------- muat data ---------- */
+async function ambilOverview(){
+  if(!STATIC){
+    try{
+      const r = await fetch('/api/overview');
+      if(r.ok){ const j = await r.json(); if(j && 'state' in j) return j; }
+    }catch(e){ /* server tidak ada — coba snapshot statis */ }
+  }
+  const r = await fetch('snapshot.json', {cache: 'no-store'});
+  if(!r.ok) throw new Error('snapshot tidak ada');
+  SNAP = await r.json(); STATIC = true;
+  return SNAP.overview;
+}
+async function muat(manual){
+  try{
+    OV = await ambilOverview();
+  }catch(e){
+    $('#verdict').innerHTML = `<span class="lampu" style="color:var(--merah);background:var(--merah)"></span>
+      <span class="kalimat v-merah">Server dashboard tidak merespons</span>`;
+    return;
+  }
+  $('#jam-update').textContent = STATIC
+    ? `Snapshot ${esc(SNAP.dibuat || '')} · baca-saja`
+    : 'Diperbarui ' + jamID(new Date());
+  renderVerdict(); renderMetrik(); renderAntrian(); renderDenyut(); renderRiwayat();
+  if(manual || !FAKTA) await muatFakta(faktaIdx);
+}
+
+/* ---------- verdict ---------- */
+function statusGlobal(){
+  const pending = draftPending();
+  if(!OV.state) return {w:'abu', t:'Belum aktif — menunggu persetujuanmu', ikon:'●',
+    tip:'File state belum ada: loop belum pernah jalan resmi. Jadwal otomatis baru dibuat setelah kamu approve.'};
+  const lr = parseTs(OV.state.last_run), kini = new Date();
+  const gagal = (OV.logs.slice(-1)[0]||'').match(/ERROR|GAGAL|Traceback/i);
+  if(gagal) return {w:'merah', t:'Run terakhir gagal — perlu dicek', ikon:'✗', tip:'Baris log terakhir mengandung error.'};
+  if(lr && (kini - lr) > 26*3600*1000 && OV.schedule)
+    return {w:'amber', t:'Run pagi belum jalan — cek apakah Mac menyala', ikon:'⏳',
+      tip:'Run terakhir lebih dari 24 jam lalu padahal jadwal aktif.'};
+  if(pending.length) return {w:'amber', t:'Ada draft menunggu keputusanmu', ikon:'⏳', tip:'Buka Antrian Keputusan di bawah.'};
+  return {w:'hijau', t:'Semua beres — tidak ada yang perlu kamu lakukan', ikon:'✓',
+    tip:'Run terakhir sukses dan tidak ada draft menunggu.'};
+}
+function renderVerdict(){
+  const s = statusGlobal();
+  const warna = {hijau:'var(--hijau)', amber:'var(--amber)', merah:'var(--merah)', abu:'var(--abu)'}[s.w];
+  $('#verdict').innerHTML = `<span class="lampu" style="color:${warna};background:${warna}"></span>
+    <span class="kalimat v-${s.w}">${s.t}</span>
+    <span class="tanya" title="${esc(s.tip)}">?</span>`;
+  setIkon(warna.includes('hijau')?'#3F6B4F':s.w==='amber'?'#B97E2C':s.w==='merah'?'#B5483B':'#8B857C',
+    s.ikon, `${s.ikon} Meja 1% — IDX`);
+}
+
+/* ---------- metrik hero ---------- */
+function draftPending(){
+  return (OV.drafts||[]).filter(d => !(OV.keputusan||{})[d.name]);
+}
+function renderMetrik(){
+  const pending = draftPending();
+  const lr = OV.state ? parseTs(OV.state.last_run) : null;
+  const kini = new Date();
+  let runKet, runNilai;
+  if(!lr){ runNilai = '—'; runKet = 'belum pernah jalan resmi (baru dry-run)'; }
+  else if(hariSama(lr,kini)){ runNilai = 'Hari ini ' + jamID(lr); runKet = 'selesai normal'; }
+  else { runNilai = tglID(lr); runKet = jamID(lr); }
+
+  let nextNilai, nextKet;
+  if(!OV.schedule){ nextNilai = 'Belum aktif'; nextKet = 'jadwal menunggu persetujuanmu'; }
+  else{
+    const n = new Date(); const target = new Date(n); target.setHours(8,0,0,0);
+    if(n >= target) target.setDate(target.getDate()+1);
+    const jam = Math.round((target-n)/3600000);
+    nextNilai = (hariSama(target,n)?'Hari ini':'Besok') + ' 08.00 WIB';
+    nextKet = `dalam ±${jam} jam`;
+  }
+  const outToday = OV.state && OV.state.last_output_date === kini.toISOString().slice(0,10) ? 1 : 0;
+
+  $('#metrik').innerHTML = `
+  <div class="kartu tautan" onclick="document.getElementById('antrian').scrollIntoView()">
+    <div class="label">Draft menunggu</div>
+    <div class="nilai angka-besar" style="color:${pending.length?'var(--amber)':'var(--hijau)'}">${pending.length}</div>
+    <div class="ket">${pending.length ? 'klik untuk membaca & memutuskan' : 'tidak ada yang perlu diputuskan ✓'}</div>
+  </div>
+  <div class="kartu"><div class="label">Run terakhir</div>
+    <div class="nilai">${runNilai}</div><div class="ket">${runKet}</div></div>
+  <div class="kartu"><div class="label">Run berikutnya <span class="tanya" title="Jadwal otomatis (cron) jalan tiap hari 08.00 WIB setelah kamu approve.">?</span></div>
+    <div class="nilai">${nextNilai}</div><div class="ket">${nextKet}</div></div>
+  <div class="kartu"><div class="label">Guardrail <span class="tanya" title="Pagar pengaman: sistem tidak mungkin mengirim keluar, keluar uang, atau hapus data.">?</span></div>
+    <div class="nilai" style="font-size:16px;line-height:1.5">Output hari ini ${outToday}/1 ✓<br>Tak pernah kirim keluar ✓</div></div>`;
+}
+
+/* ---------- antrian ---------- */
+function periodeDariNama(nama){
+  const m = nama.match(/(\d{4})-(\d{2})/);
+  return m ? `${BULAN[+m[2]-1]} ${m[1]}` : nama;
+}
+function renderAntrian(){
+  const pending = draftPending();
+  const el = $('#antrian-isi');
+  if(!OV.state && !pending.length){
+    el.innerHTML = `<div class="kartu-onboard"><b>⏳ Mode persiapan — sistem belum pernah jalan.</b>
+      <ul><li>✓ Skrip &amp; dashboard terpasang</li><li>✗ File state — terisi saat run resmi pertama</li>
+      <li>✗ Jadwal otomatis 08.00 WIB — menunggu persetujuanmu</li><li>✗ Run pertama</li></ul>
+      <p>Begitu kamu menyetujui jadwalnya, dashboard ini terisi sendiri tiap pagi.
+      Tidak ada yang berjalan atau terkirim tanpa izinmu.</p></div>`;
+    return;
+  }
+  if(!pending.length){
+    el.innerHTML = `<div class="kartu-tenang">✓ Tidak ada draft menunggu — semua sudah kamu periksa.
+      <div class="sub">Data IDX terbit bulanan; draft berikutnya muncul saat IDX merilis file baru.</div></div>`;
+    return;
+  }
+  el.innerHTML = pending.map(d => {
+    const periode = periodeDariNama(d.name);
+    const f = faktaUntuk(d.name);
+    const chips = f && f.pembanding ? `
+      <span>masuk ≥1%: <b>${fmtN.format(f.pembanding.jumlah_investor_masuk)}</b></span>
+      <span>keluar: <b>${fmtN.format(f.pembanding.jumlah_investor_keluar)}</b></span>
+      <span>kemungkinan ganti nama: <b>${fmtN.format(f.pembanding.jumlah_kemungkinan_ganti_nama)}</b></span>` : '';
+    return `<div class="antrian-kartu">
+      <div class="isi">
+        <span class="chip menunggu">⏳ Menunggu keputusanmu</span>
+        <span class="chip lolos">✓ Lolos audit AI</span>
+        <h3>Laporan Kepemilikan ≥1% — ${periode}</h3>
+        <div class="pratinjau">${chips}</div>
+      </div>
+      <button class="tombol-utama" onclick="bukaDraft('${esc(d.name)}')">Baca &amp; Putuskan →</button>
+    </div>`;
+  }).join('');
+}
+function faktaUntuk(namaDraft){
+  if(!FAKTA) return null;
+  const m = namaDraft.match(/(\d{4})-(\d{2})/);
+  if(m && FAKTA._nama && FAKTA._nama.includes(`${m[1]}-${m[2]}`)) return FAKTA;
+  return FAKTA; // fallback: fakta termuat
+}
+
+/* ---------- denyut ---------- */
+function renderDenyut(){
+  const log = OV.logs.slice(-1)[0] || '';
+  const ada = re => re.test(log);
+  const langkah = [
+    {n:'Ambil data IDX', s: ada(/NO_NEW_DATA|NEW_DATA|DAILY_LIMIT/) ? 'ok' : log ? 'gagal' : 'lewat',
+     k: ada(/NO_NEW_DATA/) ? 'tidak ada pengumuman baru — wajar' : ada(/NEW_DATA/) ? 'file baru ditemukan' : ada(/DAILY_LIMIT/) ? 'jatah output harian sudah terpakai' : log ? 'log tidak dikenali' : 'belum pernah jalan'},
+    {n:'Hitung fakta', s: ada(/NEW_DATA/) ? 'ok' : 'lewat', k: ada(/NEW_DATA/) ? 'perbandingan vs bulan lalu dihitung' : 'dilewati'},
+    {n:'AI Penulis (maker)', s: ada(/maker OK/i) ? 'ok' : ada(/NEW_DATA/) ? 'gagal' : 'lewat', k: ada(/maker OK/i) ? 'draft ditulis' : 'dilewati'},
+    {n:'AI Pemeriksa (checker)', s: ada(/checker PASS.*revisi/i) ? 'amber' : ada(/checker PASS/i) ? 'ok' : ada(/checker FAIL|rejected/i) ? 'gagal' : 'lewat',
+     k: ada(/checker PASS/i) ? 'lolos audit' : ada(/rejected/i) ? 'dibuang — lihat riwayat' : 'dilewati'},
+    {n:'Draft tersimpan', s: ada(/draft:/i) ? 'ok' : 'lewat', k: ada(/draft:/i) ? 'menunggu keputusanmu' : 'dilewati'},
+  ];
+  $('#stepper').innerHTML = langkah.map(l =>
+    `<div class="step ${l.s}"><div class="titik">${l.s==='ok'?'✓':l.s==='gagal'?'✗':l.s==='amber'?'!':'·'}</div>
+     <div><div class="nama">${l.n}</div><div class="ket">${l.k}</div></div></div>`).join('');
+
+  // strip 30 hari
+  const byDate = {};
+  for(const baris of OV.logs){
+    const m = baris.match(/^(\d{4}-\d{2}-\d{2})/);
+    if(!m) continue;
+    let cls = 'normal', ket = baris;
+    if(/ERROR|GAGAL|Traceback|checker FAIL.*rejected|rejected \(/i.test(baris)) cls = 'gagal';
+    else if(/delivered|(draft:.*)|(PASS.*draft)/i.test(baris) && /NEW_DATA/i.test(baris)) cls = 'draft';
+    byDate[m[1]] = {cls, ket};
+  }
+  let kotak = '';
+  for(let i = 29; i >= 0; i--){
+    const d = new Date(); d.setDate(d.getDate()-i);
+    const key = d.toISOString().slice(0,10);
+    const e = byDate[key];
+    kotak += `<div class="hari ${e?e.cls:''}" title="${tglID(d)}${e ? ' — '+esc(e.ket) : ' — tidak ada run'}"></div>`;
+  }
+  $('#strip30').innerHTML = kotak;
+
+  $('#jadwal-baris').innerHTML = OV.schedule
+    ? `<span class="chip lolos">✓ Jadwal aktif</span> tiap hari 08.00 WIB`
+    : `<span class="chip netral">● Belum aktif</span> jadwal otomatis menunggu persetujuanmu`;
+  $('#log-mentah').textContent = OV.logs.length ? OV.logs.join('\n') : 'Belum ada log.';
+}
+
+/* ---------- sorotan data ---------- */
+async function muatFakta(idx){
+  const daftar = OV.facts || [];
+  const el = $('#sorotan-isi');
+  if(!daftar.length){
+    el.innerHTML = `<div class="kartu-rusak">Belum ada data fakta — terisi setelah run pertama menemukan file IDX baru.</div>`;
+    return;
+  }
+  faktaIdx = Math.max(0, Math.min(idx, daftar.length-1));
+  try{
+    FAKTA = STATIC ? JSON.parse(JSON.stringify(SNAP.facts_isi[daftar[faktaIdx]]))
+                   : await (await fetch('/api/facts/'+daftar[faktaIdx])).json();
+    if(!FAKTA) throw new Error('kosong');
+    FAKTA._nama = daftar[faktaIdx];
+  }catch(e){
+    el.innerHTML = `<div class="kartu-rusak">File ${esc(daftar[faktaIdx])} tidak terbaca — section lain tetap berfungsi.</div>`;
+    return;
+  }
+  renderSorotan(); renderAntrian();
+}
+function headline(f){
+  const p = f.pembanding; if(!p) return '';
+  const kand = [];
+  if(p.top_penurunan && p.top_penurunan[0]) kand.push({a:Math.abs(p.top_penurunan[0].delta_pct), d:p.top_penurunan[0], arah:'melepas'});
+  if(p.top_kenaikan && p.top_kenaikan[0]) kand.push({a:Math.abs(p.top_kenaikan[0].delta_pct), d:p.top_kenaikan[0], arah:'menambah'});
+  if(!kand.length) return '';
+  kand.sort((x,y) => y.a - x.a);
+  const k = kand[0], d = k.d;
+  return `“${d.investor} ${k.arah} ${fmtP.format(k.a)} poin kepemilikan di ${d.kode} (${fmtP.format(d.pct_sebelum)}% → ${fmtP.format(d.pct_sesudah)}%) — pergerakan terbesar periode ini.”`;
+}
+function renderSorotan(){
+  const f = FAKTA, p = f.pembanding, r = f.ringkasan;
+  const t = parseTs(f.tanggal_data);
+  const tPrev = p ? parseTs(p.tanggal_data_sebelum) : null;
+  const edisi = `${BULAN[t.getMonth()]} ${t.getFullYear()}`;
+  const tanpa = r.total_baris - r.investor_lokal - r.investor_asing;
+  const pl = (r.investor_lokal/r.total_baris*100).toFixed(1), pf = (r.investor_asing/r.total_baris*100).toFixed(1);
+  const daftar = OV.facts || [];
+
+  const tabDef = {
+    masuk:  {label:'Masuk', data:p ? p.top_investor_masuk : [], kolom:'masuk'},
+    keluar: {label:'Keluar', data:p ? p.top_investor_keluar : [], kolom:'masuk'},
+    naik:   {label:'Naik %', data:p ? p.top_kenaikan : [], kolom:'delta'},
+    turun:  {label:'Turun %', data:p ? p.top_penurunan : [], kolom:'delta'},
+    ganti:  {label:'Ganti Nama', data:p ? p.contoh_ganti_nama : [], kolom:'ganti'},
+  };
+  if(!tabDef[tabAktif]) tabAktif = 'masuk';
+
+  $('#sorotan-isi').innerHTML = `
+    <div class="edisi-bar">
+      <div class="stempel"><span>Edisi</span><span class="besar">${BULAN3[t.getMonth()]} ${t.getFullYear()}</span><span>IDX ≥1%</span></div>
+      <div>
+        <h3>Edisi ${edisi}</h3>
+        <div style="font-size:13px;color:var(--abu)">data per ${tglID(t)}${tPrev ? ' — dibandingkan ' + tglID(tPrev) : ''}</div>
+      </div>
+      <div class="nav">
+        <button onclick="muatFakta(faktaIdx+1)" ${faktaIdx >= daftar.length-1 ? 'disabled' : ''} title="Edisi lebih lama">‹</button>
+        <button onclick="muatFakta(faktaIdx-1)" ${faktaIdx <= 0 ? 'disabled' : ''} title="Edisi lebih baru">›</button>
+      </div>
+    </div>
+    ${p ? `<div class="headline">${esc(headline(f))}</div>` : ''}
+    <div class="ring-grid">
+      <div class="kartu"><div class="label">Posisi kepemilikan ≥1%</div>
+        <div class="nilai">${fmtN.format(r.total_baris)}</div>
+        <div class="ket">${p ? 'bulan lalu ' + fmtN.format(p.total_baris_sebelum) : ''}</div></div>
+      <div class="kartu"><div class="label">Jumlah emiten</div>
+        <div class="nilai">${fmtN.format(r.jumlah_emiten)}</div>
+        <div class="ket">${p && !p.emiten_baru.length && !p.emiten_hilang.length ? 'tidak ada emiten baru/hilang' : ''}</div></div>
+      <div class="kartu"><div class="label">Lokal vs asing</div>
+        <div class="nilai" style="font-size:16px">${fmtN.format(r.investor_lokal)} lokal · ${fmtN.format(r.investor_asing)} asing</div>
+        <div class="bar-la">
+          <div style="width:${pl}%;background:var(--biru)" title="Lokal ${pl}%"></div>
+          <div style="width:${pf}%;background:var(--perunggu)" title="Asing ${pf}%"></div>
+          <div style="flex:1;background:#E7E0D6" title="Tanpa keterangan: ${fmtN.format(tanpa)}"></div>
+        </div>
+        <div class="ket">${fmtN.format(tanpa)} posisi tanpa keterangan</div></div>
+    </div>
+    ${p ? `<div class="mutasi-chip">
+      <span>▲ <b>${fmtN.format(p.jumlah_investor_masuk)}</b> investor masuk</span>
+      <span>▼ <b>${fmtN.format(p.jumlah_investor_keluar)}</b> keluar</span>
+      <span>≈ <b>${fmtN.format(p.jumlah_kemungkinan_ganti_nama)}</b> kemungkinan ganti nama
+        <span class="tanya" title="Pasangan keluar+masuk di emiten sama dengan persentase nyaris identik — kemungkinan besar cuma perubahan penulisan nama di KSEI, bukan jual-beli.">?</span></span>
+    </div>
+    <div class="tabs">${Object.entries(tabDef).map(([k,v]) =>
+      `<button class="${k===tabAktif?'aktif':''}" onclick="gantiTab('${k}')">${v.label}</button>`).join('')}</div>
+    <div id="tabel-wrap">${tabelMovers(tabDef[tabAktif])}</div>
+    <div class="disclaimer">Hasil olahan otomatis dari <code>${esc(f._nama)}</code> — belum diaudit manusia. Bukan saran investasi.</div>`
+    : '<div class="kartu-rusak">Tidak ada pembanding bulan sebelumnya untuk periode ini.</div>'}`;
+  window._tabDef = tabDef;
+}
+function gantiTab(k){ tabAktif = k; localStorage.setItem('tab1p', k);
+  document.querySelectorAll('.tabs button').forEach(b => b.classList.toggle('aktif', b.textContent === window._tabDef[k].label));
+  $('#tabel-wrap').innerHTML = tabelMovers(window._tabDef[k]); }
+function tabelMovers(t){
+  if(!t.data || !t.data.length) return `<div class="kartu-rusak" style="border-radius:0">Tidak ada data untuk tab ini.</div>`;
+  if(t.kolom === 'ganti'){
+    return `<table class="data"><thead><tr><th>Kode</th><th>Tercatat sebelumnya</th><th>Menjadi</th><th class="num">%</th></tr></thead><tbody>` +
+      t.data.map(d => `<tr><td class="kode">${esc(d.kode)}</td><td>${esc(d.dari)}</td><td>${esc(d.menjadi)}</td>
+        <td class="num">${fmtP.format(d.pct)}</td></tr>`).join('') + '</tbody></table>';
+  }
+  if(t.kolom === 'delta'){
+    return `<table class="data"><thead><tr><th>Kode</th><th>Investor</th><th class="num">Sebelum → Sesudah</th><th class="num">Δ poin</th></tr></thead><tbody>` +
+      t.data.map(d => { const naik = d.delta_pct >= 0;
+        return `<tr><td class="kode">${esc(d.kode)}</td>
+        <td title="${esc(d.emiten)}">${esc(d.investor)} ${d.lokal_asing ? `<span class="badge-la ${d.lokal_asing}">${d.lokal_asing === 'F' ? 'Asing' : 'Lokal'}</span>` : ''}</td>
+        <td class="num">${fmtP.format(d.pct_sebelum)}% → ${fmtP.format(d.pct_sesudah)}%</td>
+        <td class="num ${naik ? 'naik' : 'turun'}">${naik ? '▲ +' : '▼ −'}${fmtP.format(Math.abs(d.delta_pct))}</td></tr>`; }).join('') +
+      '</tbody></table>';
+  }
+  return `<table class="data"><thead><tr><th>Kode</th><th>Emiten</th><th>Investor</th><th class="num">%</th><th class="num">Lembar</th></tr></thead><tbody>` +
+    t.data.map(d => `<tr><td class="kode">${esc(d.kode)}</td><td>${esc(d.emiten)}</td>
+      <td>${esc(d.investor)} ${d.lokal_asing ? `<span class="badge-la ${d.lokal_asing}">${d.lokal_asing === 'F' ? 'Asing' : 'Lokal'}</span>` : ''}</td>
+      <td class="num">${d.pct != null ? fmtP.format(d.pct) : '—'}</td>
+      <td class="num">${d.shares != null ? fmtN.format(d.shares) : '—'}</td></tr>`).join('') + '</tbody></table>';
+}
+
+/* ---------- riwayat ---------- */
+function renderRiwayat(){
+  const baris = [];
+  for(const [nama, k] of Object.entries(OV.keputusan || {})){
+    baris.push({t: k.tanggal, periode: periodeDariNama(nama),
+      chip: k.keputusan === 'disetujui' ? '<span class="chip lolos">✓ Disetujui</span>' : '<span class="chip ditolak">✗ Ditolak</span>',
+      ket: k.alasan ? 'Alasan: ' + esc(k.alasan) : 'Keputusan tercatat lokal di keputusan.json',
+      aksi: `<a href="#" onclick="bukaDraft('${esc(nama)}');return false" style="color:var(--perunggu-tua)">lihat draft</a>`});
+  }
+  for(const r of OV.rejected || []){
+    baris.push({t: '', periode: periodeDariNama(r.name),
+      chip: '<span class="chip dibuang">✗ Dibuang pemeriksa AI</span>',
+      ket: r.alasan ? 'Ditolak karena: ' + esc(r.alasan) : 'Gagal audit 2x — tidak dideliver', aksi: ''});
+  }
+  if(OV.state){
+    for(const [id, p] of Object.entries(OV.state.processed || {})){
+      if(p.status === 'seeded') baris.push({t: p.tanggal, periode: id.split('@')[0],
+        chip: '<span class="chip seeded">Data awal (seeded)</span>',
+        ket: 'Arsip lama dicatat tanpa diproses', aksi: ''});
+      else if(p.status === 'rejected') baris.push({t: p.tanggal, periode: id.split('@')[0],
+        chip: '<span class="chip dibuang">✗ Dibuang pemeriksa AI</span>', ket: p.alasan ? esc(p.alasan) : '', aksi: ''});
+    }
+  }
+  if(!baris.length){
+    $('#riwayat-isi').innerHTML = `<div class="kartu" style="color:var(--abu);font-size:13.5px">
+      Belum ada keputusan — riwayat terisi setelah draft pertama kamu putuskan.
+      Belum ada draft yang dibuang pemeriksa AI ✓</div>`;
+    return;
+  }
+  baris.sort((a,b) => (b.t||'').localeCompare(a.t||''));
+  $('#riwayat-isi').innerHTML = `<table class="data" style="border-top:1px solid var(--garis)">
+    <thead><tr><th>Tanggal</th><th>Item</th><th>Hasil</th><th>Keterangan</th><th></th></tr></thead><tbody>` +
+    baris.map(b => `<tr><td style="white-space:nowrap">${b.t ? tglID(parseTs(b.t)) : '—'}</td>
+      <td>${esc(b.periode)}</td><td>${b.chip}</td><td>${b.ket}</td><td>${b.aksi}</td></tr>`).join('') +
+    '</tbody></table>';
+}
+
+/* ---------- markdown mini ---------- */
+function md2html(md){
+  const inline = s => esc(s)
+    .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  const lines = md.split('\n');
+  let html = '', i = 0;
+  while(i < lines.length){
+    const l = lines[i];
+    if(/^\s*$/.test(l)){ i++; continue; }
+    if(l.startsWith('# ')){ html += `<h1>${inline(l.slice(2))}</h1>`; i++; }
+    else if(l.startsWith('## ')){ html += `<h2>${inline(l.slice(3))}</h2>`; i++; }
+    else if(l.startsWith('>')){
+      let b = [];
+      while(i < lines.length && lines[i].startsWith('>')){ b.push(lines[i].replace(/^>\s?/,'')); i++; }
+      html += `<blockquote>${inline(b.join(' '))}</blockquote>`;
+    }
+    else if(l.startsWith('|')){
+      const rows = [];
+      while(i < lines.length && lines[i].startsWith('|')){ rows.push(lines[i]); i++; }
+      const sel = r => r.split('|').slice(1,-1).map(c => c.trim());
+      let t = '<table>';
+      rows.forEach((r, j) => {
+        if(/^\|[\s\-|:]+\|$/.test(r)) return;
+        const tag = j === 0 ? 'th' : 'td';
+        t += '<tr>' + sel(r).map(c => `<${tag}>${inline(c)}</${tag}>`).join('') + '</tr>';
+      });
+      html += t + '</table>';
+    }
+    else if(/^[-*] /.test(l)){
+      let items = [];
+      while(i < lines.length && /^[-*] /.test(lines[i])){ items.push(lines[i].slice(2)); i++; }
+      html += '<ul>' + items.map(x => `<li>${inline(x)}</li>`).join('') + '</ul>';
+    }
+    else { html += `<p>${inline(l.replace(/^\\\*/, '*'))}</p>`; i++; }
+  }
+  return html;
+}
+
+/* ---------- ruang baca ---------- */
+async function bukaDraft(nama){
+  let d;
+  if(STATIC){
+    const md = (SNAP.draft_isi || {})[nama];
+    if(!md){ alert('Draft tidak ada di snapshot.'); return; }
+    d = {name: nama, markdown: md};
+  }else{
+    try{ d = await (await fetch('/api/draft/' + encodeURIComponent(nama))).json(); }
+    catch(e){ alert('Draft tidak terbaca.'); return; }
+    if(d.error){ alert('Draft tidak ditemukan.'); return; }
+  }
+  draftAktif = nama;
+  $('#dok').innerHTML = md2html(d.markdown);
+  $('#banding-wrap').style.display = 'none';
+  const sudah = (OV.keputusan || {})[nama];
+  $('#panel-chip').innerHTML = sudah
+    ? (sudah.keputusan === 'disetujui' ? '<span class="chip lolos">✓ Disetujui '+esc((sudah.tanggal||'').slice(0,10))+'</span>'
+                                       : '<span class="chip ditolak">✗ Ditolak</span>')
+    : '<span class="chip menunggu">⏳ Menunggu keputusan</span>';
+  $('#audit-info').innerHTML = `<span class="chip lolos">✓ Lolos audit AI</span>
+    <span>Pemeriksa kedua (checker) memverifikasi angka draft ini terhadap file IDX mentah sebelum disimpan.</span>`;
+  renderPanelBawah(sudah);
+  $('#tirai').classList.add('buka'); $('#panel').classList.add('buka');
+  $('.panel-isi').scrollTop = 0;
+}
+function renderPanelBawah(sudah){
+  const b = $('#panel-bawah');
+  if(sudah){
+    b.innerHTML = `<span class="info">Keputusan tercatat ${esc(sudah.tanggal || '')} di keputusan.json</span>
+      <div class="stempel ${sudah.keputusan === 'disetujui' ? 'hijau' : 'merah'}" style="width:84px;height:84px;font-size:9px">
+        <span class="besar" style="font-size:12px">${sudah.keputusan === 'disetujui' ? 'DISETUJUI' : 'DITOLAK'}</span>
+        <span>${esc((sudah.tanggal || '').slice(0,10))}</span></div>`;
+    return;
+  }
+  if(STATIC){
+    b.innerHTML = `<button class="banding" onclick="toggleBanding()">⇄ Bandingkan dengan fakta sumber</button>
+      <span class="info">Mode baca-saja (snapshot GitHub) — setujui/tolak hanya bisa dari dashboard lokal di Mac.</span>`;
+    return;
+  }
+  b.innerHTML = `
+    <button class="banding" onclick="toggleBanding()">⇄ Bandingkan dengan fakta sumber</button>
+    <span class="info">Keputusanmu dicatat lokal — tidak ada yang terkirim ke mana pun.</span>
+    <button class="t-tolak" onclick="putuskan('ditolak')">✗ Tolak…</button>
+    <button class="t-setuju" onclick="putuskan('disetujui')">✓ Setujui</button>`;
+}
+function toggleBanding(){
+  const w = $('#banding-wrap');
+  if(w.style.display !== 'none'){ w.style.display = 'none'; return; }
+  if(!FAKTA || !FAKTA.pembanding){ w.innerHTML = '<div class="kartu-rusak">Fakta sumber belum termuat.</div>'; w.style.display='block'; return; }
+  const p = FAKTA.pembanding, r = FAKTA.ringkasan;
+  w.innerHTML = `<h2 style="font-family:var(--serif)">Angka mentah fakta sumber (${esc(FAKTA._nama)})</h2>
+    <table><tr><th>Indikator</th><th>Nilai</th></tr>
+    <tr><td>Total posisi ≥1%</td><td>${fmtN.format(r.total_baris)}</td></tr>
+    <tr><td>Jumlah emiten</td><td>${fmtN.format(r.jumlah_emiten)}</td></tr>
+    <tr><td>Lokal / asing</td><td>${fmtN.format(r.investor_lokal)} / ${fmtN.format(r.investor_asing)}</td></tr>
+    <tr><td>Investor masuk</td><td>${fmtN.format(p.jumlah_investor_masuk)}</td></tr>
+    <tr><td>Investor keluar</td><td>${fmtN.format(p.jumlah_investor_keluar)}</td></tr>
+    <tr><td>Kemungkinan ganti nama</td><td>${fmtN.format(p.jumlah_kemungkinan_ganti_nama)}</td></tr>
+    <tr><td>Masuk terbesar</td><td>${p.top_investor_masuk[0] ? esc(p.top_investor_masuk[0].kode + ' — ' + p.top_investor_masuk[0].investor) + ' (' + fmtP.format(p.top_investor_masuk[0].pct) + '%)' : '—'}</td></tr>
+    <tr><td>Penurunan terbesar</td><td>${p.top_penurunan[0] ? esc(p.top_penurunan[0].kode + ' — ' + p.top_penurunan[0].investor) + ' (' + fmtP.format(p.top_penurunan[0].delta_pct) + ' pp)' : '—'}</td></tr>
+    </table><p style="font-size:12px;color:var(--abu)">Cocokkan angka-angka ini dengan isi draft sebelum menyetujui.</p>`;
+  w.style.display = 'block';
+}
+async function putuskan(jenis){
+  if(!draftAktif) return;
+  if(STATIC){ alert('Mode baca-saja — buka dashboard lokal di Mac untuk memutuskan.'); return; }
+  let alasan = null;
+  if(jenis === 'ditolak'){
+    alasan = prompt('Alasan singkat penolakan (wajib):');
+    if(alasan === null) return;
+    if(!alasan.trim()){ alert('Alasan wajib diisi untuk penolakan.'); return; }
+  }
+  let res;
+  try{
+    res = await fetch('/api/keputusan', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({draft: draftAktif, keputusan: jenis, alasan})});
+  }catch(e){ res = null; }
+  if(!res || !res.ok){
+    const path = 'idx-1persen/output/' + draftAktif;
+    if(confirm('Server keputusan tidak merespons. Salin path file draft ke clipboard?'))
+      navigator.clipboard && navigator.clipboard.writeText(path);
+    return;
+  }
+  // stempel cap basah
+  const cap = document.createElement('div');
+  cap.className = `stempel cap ${jenis === 'disetujui' ? 'hijau' : 'merah'}`;
+  cap.style.cssText = 'position:absolute;top:90px;right:48px;background:rgba(250,247,242,.85)';
+  cap.innerHTML = `<span class="besar">${jenis === 'disetujui' ? 'DISETUJUI' : 'DITOLAK'}</span><span>${tglID(new Date())}</span>`;
+  $('.panel-isi').appendChild(cap);
+  await muat();
+  renderPanelBawah((OV.keputusan || {})[draftAktif]);
+  $('#panel-chip').innerHTML = jenis === 'disetujui'
+    ? '<span class="chip lolos">✓ Disetujui — tercatat</span>' : '<span class="chip ditolak">✗ Ditolak — tercatat</span>';
+}
+function tutupPanel(){ $('#tirai').classList.remove('buka'); $('#panel').classList.remove('buka'); draftAktif = null; }
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') tutupPanel();
+  if(draftAktif && !(OV.keputusan||{})[draftAktif]){
+    if(e.key === 'a' || e.key === 'A') putuskan('disetujui');
+    if(e.key === 'r' || e.key === 'R') putuskan('ditolak');
+  }
+});
+
+/* ---------- accordion pref + init ---------- */
+const acc = $('#acc-sorotan');
+if(localStorage.getItem('acc1p') === 'buka') acc.open = true;
+acc.addEventListener('toggle', () => localStorage.setItem('acc1p', acc.open ? 'buka' : 'tutup'));
+
+muat(true);
+setInterval(() => muat(false), 60000);
+</script>
+</body>
+</html>

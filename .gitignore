@@ -1,0 +1,5 @@
+# cache xlsx unduhan IDX — besar & bisa diunduh ulang, tidak perlu di repo
+data/
+
+__pycache__/
+.DS_Store
