@@ -42,6 +42,22 @@ FAIL → revisi 1x → masih FAIL → rejected/ + alasan (tidak dideliver)
 - Semua hasil hanya **DRAFT lokal** menunggu approval Patrick.
 - Draft yang gagal checker 2x dibuang ke `rejected/` + alasan, tidak dideliver.
 
+## Akses online (GitHub Pages, baca-saja)
+
+**https://patrickplj.github.io/idx-1persen/** — bisa dibuka dari HP/perangkat mana pun.
+Versi statis dari snapshot terakhir yang dipublikasikan; tombol setujui/tolak nonaktif
+(keputusan hanya dari dashboard lokal di Mac).
+
+Update versi online (manual, TIDAK otomatis oleh loop — guardrail):
+
+```bash
+cd "$HOME/Library/Mobile Documents/com~apple~CloudDocs/Claude Code/idx-1persen"
+python3 publish_snapshot.py
+git add -A && git commit -m "snapshot" && git push
+```
+
+Atau bilang ke Claude: *"publish snapshot idx-1persen"*.
+
 ## Dashboard "Meja 1%"
 
 Dashboard lokal untuk cek cepat tiap hari + approve/tolak draft:
